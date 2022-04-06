@@ -1,0 +1,33 @@
+<div class="card text-white bg-dark mb-3" style="max-width: 18rem;">
+  <div class="card-header">"question.QuestionText"</div>
+  <div class="card-body">
+    <h5 class="card-title">Light card title</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+
+      <p>@(questions.QuestionText)</p>
+      @foreach (var item in Enum.GetNames(typeof(Question.Colors)))
+      {
+          <div>
+              <input type="radio" name="question1" id="@item" value="@item" @onchange="() => OnSelected(item)" />
+              <label for="@item">@item</label>
+          </div>
+      }
+      <button type="button" @onclick="() => OnClickCallback.InvokeAsync(SelectedColor)">Submit</button>
+  </div>
+</div>
+
+@code {
+  [Parameter]
+  public EventCallback<string> OnClickCallback { get; set; }
+  Question questions = new Question { QuestionText = "What is the color of the sky" };
+  public string SelectedColor { get; set; } = "";
+  public class Question
+  {
+      public string QuestionText { get; set; }
+      public enum Colors { Red, Green, Blue, Yellow };
+  }
+  public void OnSelected(string color)
+  {
+    SelectedColor = color;
+  }
+}

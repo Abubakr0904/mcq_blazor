@@ -1,0 +1,16 @@
+﻿@page "/"
+@using mcq.Components
+
+<PageTitle>Index</PageTitle>
+<ScqQuestion  OnClickCallback="AddAnswer"></ScqQuestion>
+
+@code {
+    public string Local { get; set; }
+    void AddAnswer(string e) 
+    {   
+        Local = e.ToString();
+        Console.WriteLine($"Text: {Local}");   
+    }
+}
+
+<h1>@Local</h1>
